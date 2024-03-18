@@ -125,7 +125,7 @@ class _AffirmationScreenState extends State<AffirmationScreen> {
       _savedText = savedText;
       if (savedText != null) {
         _textEditingController.text =
-            savedText; // Prepopulate TextField with saved text
+            savedText; 
       }
     });
   }

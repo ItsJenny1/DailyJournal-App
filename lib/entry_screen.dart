@@ -24,7 +24,7 @@ class EntryScreen extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Navigate to AffirmationScreen
+                        
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -50,7 +50,7 @@ class EntryScreen extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Navigate to MoodScreen
+                       
                         Navigator.push(
                           context,
                           MaterialPageRoute(

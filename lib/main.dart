@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'auth_provider.dart';
-import 'theme_provider.dart'; // Import ThemeProvider from the separate file
-import 'sign_up_screen.dart'; // Import SignUpScreen from the separate file
+import 'theme_provider.dart'; 
+import 'sign_up_screen.dart'; 
 import 'home_screen.dart';
 
 late Database database;
@@ -12,14 +12,14 @@ late Database database;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize database
+ 
   database = await openDatabase(
     join(await getDatabasesPath(), 'databaseName.db'),
     onCreate: (db, version) {
-      // Create AffirmationTable
+      
       createTable('AffirmationTable');
 
-      // Create MoodTable
+     
       return db.execute(
         'CREATE TABLE TableName(name TEXT, age INTEGER, address TEXT)',
       );
@@ -57,10 +57,10 @@ class MainApp extends StatelessWidget {
           home: Consumer<AuthProvider>(
             builder: (context, authProvider, _) {
               if (authProvider.isLoggedIn) {
-                // If authenticated, navigate to HomeScreen
+               
                 return HomeScreen();
               } else {
-                // If not authenticated, navigate to SignUpScreen
+               
                 return SignUpScreen();
               }
             },

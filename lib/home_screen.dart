@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'entry_screen.dart';
-import 'auth_provider.dart'; // Import AuthProvider for sign-out logic
-import 'sign_up_screen.dart'; // Import SignUpScreen for navigation
+import 'auth_provider.dart'; 
+import 'sign_up_screen.dart'; 
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -83,12 +83,12 @@ class _HomeScreenState extends State<HomeScreen> {
             'Selected Date: ${_selectedDay.toString()}',
             style: TextStyle(fontSize: 16),
           ),
-          Spacer(), // Add spacer to push the sign-out button to the bottom
+          Spacer(), 
           ElevatedButton(
             onPressed: () {
-              // Sign out logic
+            
               Provider.of<AuthProvider>(context, listen: false).signOut();
-              // Restart the app to navigate back to SignUpScreen
+             
               (context as Element).reassemble();
             },
             child: Text('Sign Out'),
