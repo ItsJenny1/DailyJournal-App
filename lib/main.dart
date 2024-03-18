@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'auth_provider.dart';
+import 'theme_provider.dart'; // Import ThemeProvider from the separate file
+import 'sign_up_screen.dart'; // Import SignUpScreen from the separate file
 import 'home_screen.dart';
 
 late Database database;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
-  bool doesExist = prefs.containsKey('VariableName');
-  String? myVariable = prefs.getString('variableName');
-  prefs.setString('variableName', 'newValue');
 
+  // Initialize database
   database = await openDatabase(
     join(await getDatabasesPath(), 'databaseName.db'),
     onCreate: (db, version) {
@@ -27,20 +27,17 @@ void main() async {
     version: 1,
   );
 
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider(ThemeData.light())),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
-
-class MainApp extends StatelessWidget {
-  const MainApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeScreen(), // Display HomeScreen as the initial screen
-    );
-  }
-}
 void createTable(String tableName) async {
   final db = await database;
   await db.execute(
@@ -48,3 +45,28 @@ void createTable(String tableName) async {
   );
 }
 
+class MainApp extends StatelessWidget {
+  const MainApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, _) {
+        return MaterialApp(
+          theme: themeProvider.getTheme(),
+          home: Consumer<AuthProvider>(
+            builder: (context, authProvider, _) {
+              if (authProvider.isLoggedIn) {
+                // If authenticated, navigate to HomeScreen
+                return HomeScreen();
+              } else {
+                // If not authenticated, navigate to SignUpScreen
+                return SignUpScreen();
+              }
+            },
+          ),
+        );
+      },
+    );
+  }
+}
