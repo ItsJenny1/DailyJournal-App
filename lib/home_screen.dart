@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'entry_screen.dart';
-import 'auth_provider.dart'; 
-import 'sign_up_screen.dart'; 
+import 'auth_provider.dart';
+import 'sign_up_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,6 +12,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+//new comments
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
@@ -83,12 +84,11 @@ class _HomeScreenState extends State<HomeScreen> {
             'Selected Date: ${_selectedDay.toString()}',
             style: TextStyle(fontSize: 16),
           ),
-          Spacer(), 
+          Spacer(),
           ElevatedButton(
             onPressed: () {
-            
               Provider.of<AuthProvider>(context, listen: false).signOut();
-             
+
               (context as Element).reassemble();
             },
             child: Text('Sign Out'),
